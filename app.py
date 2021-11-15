@@ -8,7 +8,7 @@ import tensorflow as tf
 
 app = Flask(__name__)
 
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = S3Connection()
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'serviceAccount.json'
 
 classes = ["AluCan", "Glass", "PET"]
 
