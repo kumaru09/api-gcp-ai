@@ -8,7 +8,7 @@ import tensorflow as tf
 
 app = Flask(__name__)
 
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google-credentials.json'
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'serviceAccount.json'
 
 classes = ["AluCan", "Glass", "PET"]
 
@@ -17,11 +17,13 @@ def predict():
     if request.files.get('image'):
         data = request.files['image']
         img = Image.open(data).convert('RGB')
-        re_img = img.resize((255,255))
-        nparr = np.asarray(re_img)
-        image = tf.expand_dims(nparr, axis=0)
+        #img_tf = tf.io.decode_image(data, channels=3)
+        #re_img = tf.image.resize(img_tf, [224, 224])
+        re_img = img.resize((224,224))
+        nparr = np.true_divide(re_img, 255)
+        image = tf.cast(tf.expand_dims(nparr, axis=0), tf.int16)
         instances_list = image.numpy().tolist()
-        print(nparr.shape)
+        print(image.shape)
         prediction = predict_json('instant-matter-331109','asia-southeast1','bnn_ai_model',instances_list,'test')
         predict_class = classes[tf.argmax(prediction[0])]
         return jsonify(predict_class)
@@ -66,4 +68,4 @@ def predict_json(project, region, model, instances, version=None):
     return response['predictions']
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
