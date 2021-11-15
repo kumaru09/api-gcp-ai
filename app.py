@@ -8,7 +8,7 @@ import tensorflow as tf
 
 app = Flask(__name__)
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google-credentials.json'
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google-credentials.json'
 
 classes = ["AluCan", "Glass", "PET"]
 
@@ -66,4 +66,4 @@ def predict_json(project, region, model, instances, version=None):
     return response['predictions']
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
