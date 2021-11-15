@@ -8,7 +8,7 @@ import tensorflow as tf
 
 app = Flask(__name__)
 
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'serviceAccount.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google-credentials.json'
 
 classes = ["AluCan", "Glass", "PET"]
 
