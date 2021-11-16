@@ -24,7 +24,7 @@ def predict():
         image = tf.cast(tf.expand_dims(nparr, axis=0), tf.int16)
         instances_list = image.numpy().tolist()
         print(image.shape)
-        prediction = predict_json('instant-matter-331109','asia-southeast1','bnn_ai_model',instances_list,'test')
+        prediction = predict_json('instant-matter-331109','asia-southeast1','bnn_ai_model',instances_list,'v512')
         predict_class = classes[tf.argmax(prediction[0])]
         return jsonify(predict_class)
 
