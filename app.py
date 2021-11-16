@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 import numpy as np
-import os
 import tensorflow as tf
 from keras.models import load_model
+import keras.backend as k
 
 app = Flask(__name__)
 
@@ -26,6 +26,7 @@ def predict():
         print(nparr.shape)
         prediction = model.predict(nparr)
         predict_class = classes[tf.argmax(prediction[0])]
+        k.clear_session()
         return jsonify(predict_class)
 
 if __name__ == '__main__':
