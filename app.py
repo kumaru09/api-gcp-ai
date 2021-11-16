@@ -5,13 +5,12 @@ from keras.models import load_model
 import keras.backend as k
 
 app = Flask(__name__)
-
+model = load_model('model_70_15_15_b256_v5.h5')
 classes = ["AluCan", "Glass", "PET"]
 
 @app.route('/api/predict/', methods=['GET', 'POST'])
 def predict():
     if request.files.get('image'):
-        model = load_model('model_70_15_15_b256_v5.h5')
         data = request.files['image'].read()
         # img = Image.open(data).convert('RGB')
         img_tf = tf.io.decode_image(data, channels=3)
